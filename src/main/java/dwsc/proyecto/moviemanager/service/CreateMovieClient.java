@@ -12,6 +12,6 @@ import dwsc.proyecto.moviemanager.domain.Movie;
 @FeignClient("INSERT-MOVIE")
 public interface CreateMovieClient {
 
-	@PostMapping("/{movie}")
-	public ResponseEntity<Movie> createMovie(@RequestBody Movie movie);
+	@PostMapping("/movie")
+	public ResponseEntity<Movie> insertMovie(@RequestBody Movie movie);
 }

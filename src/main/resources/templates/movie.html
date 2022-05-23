@@ -1,77 +1,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Movies</title>
+<title>Movie Details</title>
 <!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/movies">Movies</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Create Movie</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/movies/new-movie}">New Movie</a></li>
 				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
 			</div>
 		</div>
 	</nav>
 	<!-- End Navbar -->
 
-	<!-- Cards Grid -->
-	<div class="row row-cols-1 row-cols-md-2 g-4">
-		<div class="col" th:each="movie: ${movies}">
-			<div class="card w-75">
-				<img th:src="${movie.url}" class="card-img-top" alt="Poster">
-				<div class="card-body">
-					<h5 class="card-title">
-						<a href="#" class="btn btn-primary" th:text="${movie.title}">...</a>
-					</h5>
-					<p class="card-text" th:text="${movie.description}">...</p>
+	<div class="container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			<div class="col">
+				<div class="card w-75">
+					<img th:src="${movie.url}" class="card-img-top" alt="Poster">
+					<div class="card-body">
+						<h5 class="card-title">
+							<p class="btn btn-primary" th:text="${movie.title}">...</p>
+						</h5>
+						<p class="card-text" th:text="${movie.score}">...</p>
+						<p class="card-text" th:text="${movie.description}">...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 	Comments -->
+		<div th:if="${not #lists.isEmpty(comments)}">
+
+			<div class="row d-flex justify-content-center">
+				<div class="row row-cols-1 row-cols-md-4">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Author</th>
+								<th scope="col">Score</th>
+								<th scope="col">Comment</th>
+								<th scope="col">Date</th>
+								<th scope="col">#</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="comment : ${comments}">
+								<tr>
+									<td th:text="${comment.author}">...</td>
+									<td th:text="${comment.score}">...</td>
+									<td th:text="${comment.text}">...</td>
+									<td th:text="${comment.createdAt}">...</td>
+									<td><a th:href="@{/movies/comments/} +${comment.id}" class="btn btn-outline-danger">Delete</a></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- End Cards Grid -->
-
-
-
-	<!-- 	<div th:if="${#lists.isEmpty(movies)}">There are no movies saved -->
-	<!-- 		in our system</div> -->
-
-	<!-- 	<nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
-	<!-- 		<div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-	<!-- 			<ul class="navbar-nav mr-auto"> -->
-	<!-- 				<li class="nav-item active"><a class="nav-link" href="/">Home -->
-	<!-- 						<span class="sr-only">(current)</span> -->
-	<!-- 				</a></li> -->
-	<!-- 				<li class="nav-item"><a class="nav-link" href="/createMovie">Create -->
-	<!-- 						movie</a></li> -->
-	<!-- 			</ul> -->
-	<!-- 			<form class="form-inline my-2 my-lg-0" th:action="@{/}"> -->
-	<!-- 				<input class="form-control mr-sm-2" type="search" -->
-	<!-- 					placeholder="Search" aria-label="Search" name="title" /> -->
-	<!-- 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-	<!-- 			</form> -->
-	<!-- 		</div> -->
-	<!-- 	</nav> -->
-
 </body>
 </html>

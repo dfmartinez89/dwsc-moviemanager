@@ -1,7 +1,6 @@
 package dwsc.proyecto.moviemanager.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +19,14 @@ public interface FindMovieClient {
 	public ResponseEntity<List<Movie>> getAllMovies();
 
 	@GetMapping("movies/{id}")
-	public ResponseEntity<Optional<Movie>> getMoviesById(@PathVariable String id);
+	public ResponseEntity <Movie> getMoviesById(@PathVariable String id);
 
 	@GetMapping("movies/title")
-	public ResponseEntity<Iterable<Movie>> getMoviesByTitle(@RequestParam String title);
+	public ResponseEntity<List<Movie>> getMoviesByTitle(@RequestParam String title);
 
 	@GetMapping("movies/year")
-	public ResponseEntity<Iterable<Movie>> getMoviesByYear(@RequestParam Integer year);
+	public ResponseEntity<List<Movie>> getMoviesByYear(@RequestParam Integer year);
 
 	@GetMapping("movies/score")
-	public ResponseEntity<Iterable<Movie>> getMoviesByScore(@RequestParam double score);
+	public ResponseEntity<List<Movie>> getMoviesByScore(@RequestParam double score);
 }
