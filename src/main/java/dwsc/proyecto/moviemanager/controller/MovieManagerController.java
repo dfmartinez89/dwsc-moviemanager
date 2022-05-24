@@ -23,15 +23,6 @@ import dwsc.proyecto.moviemanager.service.MovieCommentClient;
 @RequestMapping(value = "/movies")
 public class MovieManagerController {
 
-	/*
-	 * 1.Crear pelicula: -mostrar listado pelis * -crear peli * -actualizar listado
-	 * pelis *
-	 * 
-	 * 2.Borrar comentario: -mostrar listado pelis * -seleccionar peli * -detalle *
-	 * -listado comentarios de la peli * -borrar * -actualizar listado comentarios
-	 * (vuelvo a llamar al listado) *
-	 */
-
 	@Autowired
 	CreateMovieClient createMovie;
 
@@ -98,7 +89,7 @@ public class MovieManagerController {
 	@PostMapping("/new-movie")
 	public String createMovieSubmit(@ModelAttribute Movie movie) throws Exception {
 		try {
-			ResponseEntity<Movie> response = createMovie.insertMovie(movie);
+			createMovie.insertMovie(movie);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

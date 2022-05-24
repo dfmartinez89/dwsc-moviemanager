@@ -34,27 +34,11 @@ public class Comment {
 		this.text = text;
 	}
 
-	public double getAverageScore() {
-		return score;
-	}
-
-	public void setAverageScore(int averageScore) {
-		this.score = averageScore;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
-
 	public double getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 
@@ -64,6 +48,14 @@ public class Comment {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
 	}
 
 }
