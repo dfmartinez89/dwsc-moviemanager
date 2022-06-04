@@ -10,14 +10,14 @@
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="/movies">Movies</a>
+			<a class="navbar-brand" href="/">Movies</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/movies/new-movie}">New Movie</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/new-movie}">New Movie</a></li>
 				</ul>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 									<td th:text="${comment.score}">...</td>
 									<td th:text="${comment.text}">...</td>
 									<td th:text="${comment.createdAt}">...</td>
-									<td><a th:href="@{/movies/comments/} +${comment.id}" class="btn btn-outline-danger">Delete</a></td>
+									<td><a th:href="@{/comments/} +${comment.id}" class="btn btn-outline-danger">Delete</a></td>
 								</tr>
 							</th:block>
 						</tbody>
