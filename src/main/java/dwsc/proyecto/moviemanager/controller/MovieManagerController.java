@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import dwsc.proyecto.moviemanager.domain.Comment;
 import dwsc.proyecto.moviemanager.domain.Movie;
+import dwsc.proyecto.moviemanager.exceptions.InvalidMovieException;
 import dwsc.proyecto.moviemanager.service.CreateMovieClient;
 import dwsc.proyecto.moviemanager.service.FindMovieClient;
 import dwsc.proyecto.moviemanager.service.MovieCommentClient;
@@ -52,7 +54,7 @@ public class MovieManagerController {
 	}
 
 	@GetMapping("/{id}")
-	public String getMovieDetails(Model model, @PathVariable String id) throws Exception {
+	public String getMovieDetails(Model model, @PathVariable(required = true) String id) throws Exception {
 		try {
 			ResponseEntity<Movie> movieRes = findMovie.getMoviesById(id);
 			Movie movie = movieRes.getBody();
@@ -69,7 +71,7 @@ public class MovieManagerController {
 	}
 
 	@GetMapping("/comments/{id}")
-	public String deleteComment(Model model, @PathVariable String id) throws Exception {
+	public String deleteComment(Model model, @PathVariable(required = true) String id) throws Exception {
 		try {
 			commentMovie.deleteComment(id);
 		} catch (Exception e) {
@@ -86,6 +88,9 @@ public class MovieManagerController {
 
 	@PostMapping("/new-movie")
 	public String createMovieSubmit(@ModelAttribute Movie movie) throws Exception {
+		if (movie.getTitle().isBlank() || movie.getYear()==0 || movie.getDescription().isBlank() ) {
+			throw new InvalidMovieException(HttpStatus.BAD_REQUEST, "Please add all fields");
+		}
 		try {
 			createMovie.insertMovie(movie);
 		} catch (Exception e) {
