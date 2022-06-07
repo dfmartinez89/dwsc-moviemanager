@@ -1,0 +1,1 @@
+import{p as e,b as m}from"./p-da6e9599.js";(()=>{const m=import.meta.url,o={};return""!==m&&(o.resourcesUrl=new URL(".",m).href),e(o)})().then((e=>m([["p-4e0d7599",[[1,"comment-movie",{value:[32]}]]],["p-86a6d697",[[1,"my-component",{rating:[2]}]]]],e)));
