@@ -1,13 +1,12 @@
 package dwsc.proyecto.moviemanager.domain;
 
-import java.util.Date;
 
 public class Comment {
 	private String id;
 	private String author;
 	private String text;
 	private double score;
-	private Date createdAt;
+	private String createdAt;
 	private Movie movie;
 
 	public String getId() {
@@ -42,11 +41,11 @@ public class Comment {
 		this.score = score;
 	}
 
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 
