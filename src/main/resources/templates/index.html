@@ -5,6 +5,9 @@
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<script type="module" src="/build/comment-movie.esm.js"></script>
+		<script nomodule src="/build/comment-movie.js"></script>
+		<script src='https://unpkg.com/@dev-engage/stencil-bootstrap@<current_version>/dist/stb.js'></script>
 </head>
 <body>
 	<!-- Navbar -->
@@ -29,7 +32,7 @@
 	</nav>
 	<!-- End Navbar -->
 
-	<div class="container">
+	<div class="container mt-4">
 		<div th:if="${#lists.isEmpty(movies)}">There are no movies saved in our system</div>
 
 		<!-- Cards Grid -->
@@ -40,6 +43,7 @@
 					<div class="card-body">
 						<a th:href="@{/} +${movie.id}"><h5 class="card-title" th:text="${movie.title}"></h5></a>
 						<p class="card-text" th:text="${movie.description}">...</p>
+						<my-component th:rating="${movie.score}"></my-component>
 					</div>
 				</div>
 			</div>
