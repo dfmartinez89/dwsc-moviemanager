@@ -22,7 +22,7 @@ public interface FindMovieClient {
 	public ResponseEntity <Movie> getMoviesById(@PathVariable String id);
 
 	@GetMapping("movies/title")
-	public ResponseEntity<List<Movie>> getMoviesByTitle(@RequestParam String title);
+	public ResponseEntity<List<Movie>> getMoviesByTitleLike(@RequestParam String title);
 
 	@GetMapping("movies/year")
 	public ResponseEntity<List<Movie>> getMoviesByYear(@RequestParam Integer year);
