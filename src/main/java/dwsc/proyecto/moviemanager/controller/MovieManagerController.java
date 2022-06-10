@@ -37,7 +37,7 @@ public class MovieManagerController {
 			@PathVariable(value = "title", required = false) String title) throws Exception {
 		if (title != null) {
 			try {
-				ResponseEntity<List<Movie>> movies = findMovie.getMoviesByTitle(title);
+				ResponseEntity<List<Movie>> movies = findMovie.getMoviesByTitleLike(title);
 				model.put("movies", movies.getBody());
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
