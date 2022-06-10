@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dwsc.proyecto.moviemanager.domain.Comment;
 import dwsc.proyecto.moviemanager.domain.Movie;
@@ -27,27 +28,29 @@ public class MovieManagerController {
 	CreateMovieClient createMovie;
 
 	@Autowired
-	FindMovieClient findMovie;
+	FindMovieClient movieClient;
 
 	@Autowired
 	MovieCommentClient commentMovie;
 
 	@GetMapping(value = "/")
 	public String getMovies(Map<String, List<Movie>> model,
-			@PathVariable(value = "title", required = false) String title) throws Exception {
+			@RequestParam(value = "title", required = false) String title) throws Exception {
 		if (title != null) {
 			try {
-				ResponseEntity<List<Movie>> movies = findMovie.getMoviesByTitleLike(title);
+				ResponseEntity<List<Movie>> movies = movieClient.getMoviesByTitleLike(title);
 				model.put("movies", movies.getBody());
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
-		}
-		try {
-			ResponseEntity<List<Movie>> movies = findMovie.getAllMovies();
-			model.put("movies", movies.getBody());
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+		} else {
+
+			try {
+				ResponseEntity<List<Movie>> movies = movieClient.getAllMovies();
+				model.put("movies", movies.getBody());
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
 		}
 
 		return "index";
@@ -56,7 +59,7 @@ public class MovieManagerController {
 	@GetMapping("/{id}")
 	public String getMovieDetails(Model model, @PathVariable(required = true) String id) throws Exception {
 		try {
-			ResponseEntity<Movie> movieRes = findMovie.getMoviesById(id);
+			ResponseEntity<Movie> movieRes = movieClient.getMoviesById(id);
 			Movie movie = movieRes.getBody();
 			model.addAttribute("movie", movie);
 			ResponseEntity<Iterable<Comment>> commentRes = commentMovie.getCommentsByMovieId(id);
@@ -88,7 +91,7 @@ public class MovieManagerController {
 
 	@PostMapping("/new-movie")
 	public String createMovieSubmit(@ModelAttribute Movie movie) throws Exception {
-		if (movie.getTitle().isBlank() || movie.getYear()==0 || movie.getDescription().isBlank() ) {
+		if (movie.getTitle().isBlank() || movie.getYear() == 0 || movie.getDescription().isBlank()) {
 			throw new InvalidMovieException(HttpStatus.BAD_REQUEST, "Please add all fields");
 		}
 		try {
